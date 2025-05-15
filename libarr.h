@@ -14,8 +14,8 @@ int delete  (int *arr, int len, int index);
 int search (int *arr, int len, int val);
 void sort_asc   (int *arr, int len);
 void sort_desc  (int *arr, int len);
-void merge(int *arr, int len, int *arr_one, int len_arr_one, int *arr_two, int len_arr_two);
-int split   (int *arr, int sum_arrs_lens, int *arr_one, int *arr_two); //maybe return [[],[]]?
+int merge  (int *arr, int len, int *arr_one, int len_arr_one, int *arr_two, int len_arr_two);
+int split_by_index  (int *arr, int len, int *arr_one, int *arr_two, int index);
 int reverse (int *arr, int len);
 int *slice  (int *arr, int len, int from, int to);
 int map     (void (*fn)(int val), int *arr, int len);
@@ -96,17 +96,36 @@ void sort_desc(int *arr, int len)
     qsort(arr, len, sizeof(*arr), compar_desc);
 }
 
-void merge(int *arr, int len, int *arr_one, int len_arr_one, int *arr_two, int len_arr_two)
+int merge(int *arr, int len, int *arr_one, int len_arr_one, int *arr_two, int len_arr_two)
 {
     int i = 0;
     for (int j = 0; j < len_arr_one; ++j) {
         arr[i++] = arr_one[j];
+        if (i >= len) return 0;
     }
     for (int k = 0; k < len_arr_two; ++k) {
         arr[i++] = arr_two[k];
+        if (i >= len) return 0;
     }
+    return 1;
 }
-int split(int *arr, int sum_arrs_lens, int *arr_one, int *arr_two); //maybe return [[],[]]?
+
+int split_by_index(int *arr, int len, int *arr_one, int *arr_two, int index)
+{
+    if (index >= len) return 0;
+    if (index <= 0) return 0;
+    if (len <= 0) return 0;
+
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    while (i < index)
+        arr_one[j++] = arr[i++];
+    while (i < len)
+        arr_two[k++] = arr[i++];
+    return 1;
+}
+
 int reverse(int *arr, int len);
 int *slice(int *arr, int len, int from, int to);
 int map(void (*fn)(int val), int *arr, int len);
