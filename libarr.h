@@ -17,7 +17,7 @@ void sort_desc  (int *arr, int len);
 int merge  (int *arr, int len, int *arr_one, int len_arr_one, int *arr_two, int len_arr_two);
 int split_by_index  (int *arr, int len, int *arr_one, int *arr_two, int index);
 int reverse (int *arr, int len);
-int *slice  (int *arr, int len, int from, int to);
+int *slice (int *arr, int *arr_result, int len, int from, int to);
 int map     (void (*fn)(int val), int *arr, int len);
 int *filter (int *arr, int len, int min, int max);
 int reduce  (int *arr, int len, char oper);
@@ -142,7 +142,19 @@ int reverse(int *arr, int len)
     return i;
 }
 
-int *slice(int *arr, int len, int from, int to);
+int *slice(int *arr, int *arr_result, int len, int from, int to)
+{
+    // TODO: check it properly 100% here is a bug :)
+    if (len <= 0 || from < 0 || from >= len || to <= 0 || to >= len) return (void *)0;
+    int j = 0;
+    for (int i = 0; i < len; ++i) {
+        if (i >= from && i <= to)
+            arr_result[j++] = arr[i];
+        else
+            arr_result[j++] = 0;
+    }
+    return arr_result;
+}
 int map(void (*fn)(int val), int *arr, int len);
 int *filter(int *arr, int len, int min, int max);
 int reduce(int *arr, int len, char oper);
