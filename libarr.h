@@ -14,7 +14,7 @@ int delete  (int *arr, int len, int index);
 int search (int *arr, int len, int val);
 void sort_asc   (int *arr, int len);
 void sort_desc  (int *arr, int len);
-int merge   (int *arr1, int *arr, int sum_arrs_lens);
+void merge(int *arr, int len, int *arr_one, int len_arr_one, int *arr_two, int len_arr_two);
 int split   (int *arr, int sum_arrs_lens, int *arr_one, int *arr_two); //maybe return [[],[]]?
 int reverse (int *arr, int len);
 int *slice  (int *arr, int len, int from, int to);
@@ -95,7 +95,17 @@ void sort_desc(int *arr, int len)
 {
     qsort(arr, len, sizeof(*arr), compar_desc);
 }
-int merge(int *arr1, int *arr, int sum_arrs_lens);
+
+void merge(int *arr, int len, int *arr_one, int len_arr_one, int *arr_two, int len_arr_two)
+{
+    int i = 0;
+    for (int j = 0; j < len_arr_one; ++j) {
+        arr[i++] = arr_one[j];
+    }
+    for (int k = 0; k < len_arr_two; ++k) {
+        arr[i++] = arr_two[k];
+    }
+}
 int split(int *arr, int sum_arrs_lens, int *arr_one, int *arr_two); //maybe return [[],[]]?
 int reverse(int *arr, int len);
 int *slice(int *arr, int len, int from, int to);
