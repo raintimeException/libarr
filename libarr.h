@@ -67,13 +67,6 @@ int delete(int *arr, int len, int index)
     return arr[index] = 0;
 }
 
-
-int compar_asc(const void *a, const void *b)
-{
-    const int *_a = a, *_b = b;
-    return (*_a > *_b) - (*_a < *_b);
-}
-
 int search(int *arr, int len, int val)
 {
     for (int i = 0; i < len; ++i)
@@ -81,11 +74,27 @@ int search(int *arr, int len, int val)
     return -1;
 }
 
+int compar_asc(const void *a, const void *b)
+{
+    const int *_a = a, *_b = b;
+    return (*_a > *_b) - (*_a < *_b);
+}
+
 void sort_asc(int *arr, int len)
 {
     qsort(arr, len, sizeof(*arr), compar_asc);
 }
-void sort_desc(int *arr, int len);
+
+int compar_desc(const void *a, const void *b)
+{
+    const int *_a = a, *_b = b;
+    return (*_a < *_b) - (*_a > *_b);
+}
+
+void sort_desc(int *arr, int len)
+{
+    qsort(arr, len, sizeof(*arr), compar_desc);
+}
 int merge(int *arr1, int *arr, int sum_arrs_lens);
 int split(int *arr, int sum_arrs_lens, int *arr_one, int *arr_two); //maybe return [[],[]]?
 int reverse(int *arr, int len);
