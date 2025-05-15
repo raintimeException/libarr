@@ -126,7 +126,22 @@ int split_by_index(int *arr, int len, int *arr_one, int *arr_two, int index)
     return 1;
 }
 
-int reverse(int *arr, int len);
+#include <stdio.h>
+int reverse(int *arr, int len)
+{
+    if (len <= 0) return 0;
+    int t;
+    int i = 0;
+
+    while (i < len/2) {
+        t = arr[i];
+        arr[i] = arr[len-i-1];
+        arr[len-i-1] = t;
+        i++;
+    }
+    return i;
+}
+
 int *slice(int *arr, int len, int from, int to);
 int map(void (*fn)(int val), int *arr, int len);
 int *filter(int *arr, int len, int min, int max);
