@@ -1,13 +1,15 @@
 #ifndef LIB_ARR_H
 #define LIB_ARR_H
 
+#include <stdio.h>
+
 #define len(arr)   sizeof(arr)/sizeof(*arr)
 
 int print(int *arr, int len);
 int get(int *arr, int index);
 int update(int *arr, int index, int val); //check if it quals -> do nothing
 int insert(int *arr, int index, int val);
-int append(int *arr, int val);
+int append(int *arr, int len, int val);
 int delete(int *arr, int index);
 int search(int *arr, int val);
 int sort_asc(int *arr);
@@ -22,10 +24,7 @@ int reduce(int *arr, char oper);
 int *find(int *arr, int min, int max);
 int *check_duplicate(int *arr);
 
-#endif // LIB_ARR
-
 #ifdef LIB_ARR_IMPLEMENTATION
-
 
 int print(int *arr, int len)
 {
@@ -52,9 +51,11 @@ int insert(int *arr, int index, int val)
     update(arr, index, val);
 }
 
-int append(int *arr, int val)
+int append(int *arr, int len, int val)
 {
-
+    static int last_appended_index = 0;
+    if (last_appended_index < len) arr[last_appended_index++] = val;
+    else printf("ERROR: Array is full\n");
 }
 
 int delete(int *arr, int index);
@@ -72,3 +73,4 @@ int *find(int *arr, int min, int max);
 int *check_duplicate(int *arr);
 
 #endif // LIB_ARR_IMPLEMENTATION
+#endif // LIB_ARR_H
