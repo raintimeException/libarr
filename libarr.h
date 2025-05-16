@@ -19,10 +19,9 @@ int split_by_index  (int *arr, int len, int *arr_one, int *arr_two, int index);
 int reverse (int *arr, int len);
 int *slice (int *arr, int *arr_result, int len, int from, int to);
 int map     (char op, int *arr, int len);
-int *filter (int *arr, int len, int min, int max);
+int *filter(int *arr, int len, int min, int max);
 int reduce  (int *arr, int len, char oper);
-int *find   (int *arr, int len, int min, int max);
-int *check_duplicate    (int *arr, int len);
+int *check_duplicate(int *arr, int *arr_result, int len);
 
 #ifdef LIB_ARR_IMPLEMENTATION
 
@@ -189,10 +188,39 @@ int map(char op, int *arr, int len)
     return result;
 }
 
-int *filter(int *arr, int len, int min, int max);
-int reduce(int *arr, int len, char oper);
-int *find(int *arr, int len, int min, int max);
-int *check_duplicate(int *arr, int len);
+int *filter(int *arr, int len, int min, int max)
+{
+    for (int i = 0; i < len; ++i) {
+        if (arr[i] < min || arr[i] > max)
+            arr[i] = 0;
+    }
+    return arr;
+}
+
+int reduce(int *arr, int len, char oper)
+{
+    return map(oper, arr, len);
+}
+
+int *check_duplicate(int *arr, int *arr_result, int len)
+{
+    qsort(arr, len, sizeof(*arr), compar_asc);
+
+    int j = 0, i = 0;
+    for (; i < len; ++i) {
+        if (arr[i] != arr[i-1])
+            arr_result[j++] = arr[i];
+        else
+            arr_result[j++] = 0;
+    }
+    // one more
+    if (arr[i] != arr[i-1])
+        arr_result[j++] = arr[i];
+    else
+        arr_result[j++] = 0;
+
+    return arr_result;
+}
 
 #endif // LIB_ARR_IMPLEMENTATION
 #endif // LIB_ARR_H
