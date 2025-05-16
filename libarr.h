@@ -18,7 +18,7 @@ int merge  (int *arr, int len, int *arr_one, int len_arr_one, int *arr_two, int 
 int split_by_index  (int *arr, int len, int *arr_one, int *arr_two, int index);
 int reverse (int *arr, int len);
 int *slice (int *arr, int *arr_result, int len, int from, int to);
-int map     (void (*fn)(int val), int *arr, int len);
+int map     (char op, int *arr, int len);
 int *filter (int *arr, int len, int min, int max);
 int reduce  (int *arr, int len, char oper);
 int *find   (int *arr, int len, int min, int max);
@@ -154,7 +154,41 @@ int *slice(int *arr, int *arr_result, int len, int from, int to)
     return arr_result;
 }
 
-int map(void (*fn)(int val), int *arr, int len);
+int map(char op, int *arr, int len)
+{
+    int result = 0;
+
+    switch (op) {
+        case '+': {
+            for (int i = 0; i < len; ++i)
+                result += arr[i];
+            break;
+        }
+        case '-': {
+            for (int i = 0; i < len; ++i)
+                result -= arr[i];
+            break;
+        }
+        case '*': {
+            result = 1;
+            for (int i = 0; i < len; ++i)
+                result *= arr[i];
+            break;
+        }
+        case '/': {
+            int i = 0;
+            for (; i < len; ++i)
+                result += arr[i];
+            result /= i;
+            break;
+        }
+        default : {
+            return 0;
+        }
+    }
+    return result;
+}
+
 int *filter(int *arr, int len, int min, int max);
 int reduce(int *arr, int len, char oper);
 int *find(int *arr, int len, int min, int max);
