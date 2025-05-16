@@ -7,7 +7,7 @@
 
 int print   (int *arr, int len);
 int get     (int *arr, int index); // index out of range is your fault
-int update  (int *arr, int index, int val); //check if it quals -> do nothing
+int update  (int *arr, int index, int val);
 int insert  (int *arr, int index, int val);
 int append  (int *arr, int len, int val); // I know that pass `len' to every function is stupid, but it was the simplest solution
 int delete  (int *arr, int len, int index);
@@ -126,7 +126,6 @@ int split_by_index(int *arr, int len, int *arr_one, int *arr_two, int index)
     return 1;
 }
 
-#include <stdio.h>
 int reverse(int *arr, int len)
 {
     if (len <= 0) return 0;
@@ -146,15 +145,15 @@ int *slice(int *arr, int *arr_result, int len, int from, int to)
 {
     // TODO: check it properly 100% here is a bug :)
     if (len <= 0 || from < 0 || from >= len || to <= 0 || to >= len) return (void *)0;
+
     int j = 0;
     for (int i = 0; i < len; ++i) {
         if (i >= from && i <= to)
             arr_result[j++] = arr[i];
-        else
-            arr_result[j++] = 0;
     }
     return arr_result;
 }
+
 int map(void (*fn)(int val), int *arr, int len);
 int *filter(int *arr, int len, int min, int max);
 int reduce(int *arr, int len, char oper);
